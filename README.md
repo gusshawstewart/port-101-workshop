@@ -5,9 +5,6 @@ on a simple software-catalog domain. Aimed at people about to run their own
 Port POC and want a quick, hands-on tour of the core building blocks:
 **catalog → scorecards → basic workflow → agentic (AI) workflow.**
 
-Unlike a guided multi-step workshop, these skills don't depend on each
-other and don't need to be run in order — pick whichever feature you want
-to see first.
 
 ## What's here
 
