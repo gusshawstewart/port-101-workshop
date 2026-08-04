@@ -11,9 +11,9 @@ description: >-
 
 Creates a **"Scaffold New Service"** workflow: its first node is a
 self-service trigger (the form attendees see under Self-Service), followed
-by a linear, three-node automation (create entity → notify Slack). No
-branching, no AI — this is the simplest possible trigger-to-automation
-example in Port.
+by a linear, three-node automation (create entity → trigger an Azure
+DevOps Pipeline as the stubbed provisioning "backend"). No branching, no
+AI — this is the simplest possible trigger-to-automation example in Port.
 
 This skill is tool-agnostic — use whatever Port API/MCP access you have
 (`upsert_workflow`), whether invoked from Claude, Cursor, or Port AI. The
@@ -30,12 +30,18 @@ form — you don't need a separate action object.
    [assets/workflow.json](assets/workflow.json). It has 3 nodes:
    - `trigger` — `SELF_SERVE_TRIGGER`, the form.
    - `create_service_entity` — `UPSERT_ENTITY` on blueprint `service`.
-   - `notify_slack` — `WEBHOOK` to Slack (optional; fails silently
-     (`onFailure: continue`) if `SLACK_BOT_TOKEN` / `SLACK_PLATFORM_CHANNEL`
-     secrets aren't set).
-3. **(Optional) add Slack secrets** on the workflow: `SLACK_BOT_TOKEN`,
-   `SLACK_PLATFORM_CHANNEL`. Without them the run still succeeds; only the
-   notification step fails.
+   - `trigger_azure_pipeline` — `WEBHOOK` POST to the Azure DevOps
+     Pipelines REST API (`.../_apis/pipelines/{pipelineId}/runs`),
+     standing in for whatever *really* provisions a new service (repo,
+     CI, infra). **This call is stubbed/illustrative** — it fails
+     silently (`onFailure: continue`) unless real Azure DevOps secrets are
+     configured, so the workflow still succeeds end-to-end out of the box.
+3. **(Optional) point it at a real Azure DevOps pipeline** by adding
+   secrets on the workflow: `AZURE_DEVOPS_ORG`, `AZURE_DEVOPS_PROJECT`,
+   `AZURE_DEVOPS_SCAFFOLD_PIPELINE_ID`, and `AZURE_DEVOPS_PAT_B64` (base64
+   of `:<personal-access-token>`, since Azure DevOps uses HTTP Basic auth
+   with an empty username). Without them the run still succeeds; only the
+   pipeline-trigger step fails.
 
 ## Done when
 

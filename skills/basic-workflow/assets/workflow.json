@@ -102,28 +102,34 @@
       "verbose": false
     },
     {
-      "identifier": "notify_slack",
-      "title": "Notify Slack",
-      "icon": "Slack",
+      "identifier": "trigger_azure_pipeline",
+      "title": "Trigger Azure DevOps Scaffold Pipeline",
+      "icon": "AzureDevops",
+      "description": "STUBBED: illustrates calling Azure DevOps Pipelines as the real provisioning backend. Fails silently without real org/project/pipeline/PAT secrets.",
       "config": {
         "type": "WEBHOOK",
-        "url": "https://slack.com/api/chat.postMessage",
+        "url": "https://dev.azure.com/{{ .secrets.AZURE_DEVOPS_ORG }}/{{ .secrets.AZURE_DEVOPS_PROJECT }}/_apis/pipelines/{{ .secrets.AZURE_DEVOPS_SCAFFOLD_PIPELINE_ID }}/runs?api-version=7.1",
         "agent": false,
         "synchronized": true,
         "method": "POST",
         "headers": {
           "Content-Type": "application/json",
-          "Authorization": "Bearer {{ .secrets.SLACK_BOT_TOKEN }}"
+          "Authorization": "Basic {{ .secrets.AZURE_DEVOPS_PAT_B64 }}"
         },
         "body": {
-          "text": "New service scaffolded: {{ .outputs[\"trigger\"].title }}",
-          "channel": "{{ .secrets.SLACK_PLATFORM_CHANNEL }}"
+          "templateParameters": {
+            "serviceIdentifier": "{{ .outputs[\"trigger\"].identifier }}",
+            "serviceTitle": "{{ .outputs[\"trigger\"].title }}",
+            "language": "{{ .outputs[\"trigger\"].language }}"
+          }
         },
         "onTimeout": "fail",
         "onFailure": "continue"
       },
-      "variables": {},
-      "description": null,
+      "variables": {
+        "pipeline_run_id": "{{ .result.response.id }}",
+        "pipeline_run_url": "{{ .result.response._links.web.href }}"
+      },
       "links": [],
       "verbose": false
     }
@@ -136,7 +142,7 @@
     },
     {
       "sourceIdentifier": "create_service_entity",
-      "targetIdentifier": "notify_slack",
+      "targetIdentifier": "trigger_azure_pipeline",
       "description": null
     }
   ]
