@@ -12,8 +12,10 @@ description: >-
 Creates a **"Scaffold New Service"** workflow: its first node is a
 self-service trigger (the form attendees see under Self-Service), followed
 by a linear, three-node automation (create entity → trigger an Azure
-DevOps Pipeline as the stubbed provisioning "backend"). No branching, no
-AI — this is the simplest possible trigger-to-automation example in Port.
+DevOps Pipeline via Port's native
+[Azure DevOps integration action](https://docs.port.io/workflows/build-workflows/action-nodes/integration-actions/azure-devops/),
+as the stubbed provisioning "backend"). No branching, no AI — this is the
+simplest possible trigger-to-automation example in Port.
 
 This skill is tool-agnostic — use whatever Port API/MCP access you have
 (`upsert_workflow`), whether invoked from Claude, Cursor, or Port AI. The
@@ -30,18 +32,22 @@ form — you don't need a separate action object.
    [assets/workflow.json](assets/workflow.json). It has 3 nodes:
    - `trigger` — `SELF_SERVE_TRIGGER`, the form.
    - `create_service_entity` — `UPSERT_ENTITY` on blueprint `service`.
-   - `trigger_azure_pipeline` — `WEBHOOK` POST to the Azure DevOps
-     Pipelines REST API (`.../_apis/pipelines/{pipelineId}/runs`),
-     standing in for whatever *really* provisions a new service (repo,
-     CI, infra). **This call is stubbed/illustrative** — it fails
-     silently (`onFailure: continue`) unless real Azure DevOps secrets are
-     configured, so the workflow still succeeds end-to-end out of the box.
-3. **(Optional) point it at a real Azure DevOps pipeline** by adding
-   secrets on the workflow: `AZURE_DEVOPS_ORG`, `AZURE_DEVOPS_PROJECT`,
-   `AZURE_DEVOPS_SCAFFOLD_PIPELINE_ID`, and `AZURE_DEVOPS_PAT_B64` (base64
-   of `:<personal-access-token>`, since Azure DevOps uses HTTP Basic auth
-   with an empty username). Without them the run still succeeds; only the
-   pipeline-trigger step fails.
+   - `trigger_azure_pipeline` — `INTEGRATION_ACTION` node using Port's
+     built-in Azure DevOps integration
+     (`integrationProvider: "azure-devops"`,
+     `integrationInvocationType: "trigger_pipeline"`), standing in for
+     whatever *really* provisions a new service (repo, CI, infra). It
+     uses `deferIntegrationInstallation: true`, so this workflow saves and
+     runs even without a real Azure DevOps integration connected — the
+     pipeline-trigger step just sits pending in the workflow's setup
+     checklist until one is installed. **This is the stubbed/illustrative
+     part of the demo**; `project` and `pipelineId` are placeholder values.
+3. **(Optional) point it at a real pipeline** by installing the
+   [Azure DevOps integration](https://docs.port.io/workflows/build-workflows/action-nodes/integration-actions/azure-devops/)
+   (Single Account mode) from the workflow's setup checklist, then editing
+   `project` / `pipelineId` in `trigger_azure_pipeline` to match a real
+   Azure DevOps project and pipeline. Until then the run still succeeds
+   end-to-end; only the pipeline-trigger node stays pending.
 
 ## Done when
 

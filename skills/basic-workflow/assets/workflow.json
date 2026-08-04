@@ -103,33 +103,27 @@
     },
     {
       "identifier": "trigger_azure_pipeline",
-      "title": "Trigger Azure DevOps Scaffold Pipeline",
+      "title": "Trigger Azure DevOps Pipeline",
       "icon": "AzureDevops",
-      "description": "STUBBED: illustrates calling Azure DevOps Pipelines as the real provisioning backend. Fails silently without real org/project/pipeline/PAT secrets.",
+      "description": "STUBBED: uses Port's native Azure DevOps integration action (INTEGRATION_ACTION / trigger_pipeline) to queue a scaffold pipeline. deferIntegrationInstallation lets this workflow be created before the integration is installed; the run stays pending in the workflow's setup checklist until a real Azure DevOps integration (Single Account mode) is connected.",
       "config": {
-        "type": "WEBHOOK",
-        "url": "https://dev.azure.com/{{ .secrets.AZURE_DEVOPS_ORG }}/{{ .secrets.AZURE_DEVOPS_PROJECT }}/_apis/pipelines/{{ .secrets.AZURE_DEVOPS_SCAFFOLD_PIPELINE_ID }}/runs?api-version=7.1",
-        "agent": false,
-        "synchronized": true,
-        "method": "POST",
-        "headers": {
-          "Content-Type": "application/json",
-          "Authorization": "Basic {{ .secrets.AZURE_DEVOPS_PAT_B64 }}"
-        },
-        "body": {
+        "type": "INTEGRATION_ACTION",
+        "integrationProvider": "azure-devops",
+        "integrationInvocationType": "trigger_pipeline",
+        "deferIntegrationInstallation": true,
+        "integrationActionExecutionProperties": {
+          "project": "port-101",
+          "pipelineId": "1",
           "templateParameters": {
             "serviceIdentifier": "{{ .outputs[\"trigger\"].identifier }}",
             "serviceTitle": "{{ .outputs[\"trigger\"].title }}",
             "language": "{{ .outputs[\"trigger\"].language }}"
-          }
+          },
+          "reportPipelineStatus": true
         },
-        "onTimeout": "fail",
         "onFailure": "continue"
       },
-      "variables": {
-        "pipeline_run_id": "{{ .result.response.id }}",
-        "pipeline_run_url": "{{ .result.response._links.web.href }}"
-      },
+      "variables": {},
       "links": [],
       "verbose": false
     }
