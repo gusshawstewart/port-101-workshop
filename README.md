@@ -1,17 +1,23 @@
 # Port 101 — a beginner's tour of Port
 
-Four small, **independent** skills, each showing one Port capability, built
+Five small, **independent** skills, each showing one Port capability, built
 on a simple software-catalog domain. Aimed at people about to run their own
 Port POC and want a quick, hands-on tour of the core building blocks:
-**catalog → scorecards → basic workflow → agentic (AI) workflow.**
+**catalog + relations → scorecards → team ownership → basic workflow →
+agentic (AI) workflow.**
 
+Unlike a guided multi-step workshop, these skills don't depend on each
+other and don't need to be run in order — pick whichever feature you want
+to see first (though `catalog-foundations` is the natural starting point
+since the others build on the `service` entities it creates).
 
 ## What's here
 
 | Skill | Shows you | Files |
 |---|---|---|
-| [catalog-foundations](skills/catalog-foundations/SKILL.md) | Blueprints + mock entities | [skills/catalog-foundations/](skills/catalog-foundations/) |
+| [catalog-foundations](skills/catalog-foundations/SKILL.md) | Blueprints, relations (`service` → `azure_repo` / `k8s_resource`), and mock entities | [skills/catalog-foundations/](skills/catalog-foundations/) |
 | [scorecards](skills/scorecards/SKILL.md) | Grading entities with rules (Bronze/Silver/Gold) | [skills/scorecards/](skills/scorecards/) |
+| [team-ownership](skills/team-ownership/SKILL.md) | Teams, entity ownership, and adding a user to a team | [skills/team-ownership/](skills/team-ownership/) |
 | [basic-workflow](skills/basic-workflow/SKILL.md) | A self-service form triggering a linear, no-AI automation | [skills/basic-workflow/](skills/basic-workflow/) |
 | [agentic-workflow](skills/agentic-workflow/SKILL.md) | The same shape, but with an AI node generating real output | [skills/agentic-workflow/](skills/agentic-workflow/) |
 
@@ -72,14 +78,17 @@ created the action/workflow itself first (via the `SKILL.md` in
 [skills/agentic-workflow/](skills/agentic-workflow/), run once from Claude
 or Cursor with Port MCP).
 
-## What you'll have at the end (if you run all four)
+## What you'll have at the end (if you run all five)
 
-1. A `service` catalog with six services with varying maturity.
+1. A `service` catalog with six services with varying maturity, each
+   related to an `azure_repo` and one or more `k8s_resource` entities.
 2. A "Production Readiness" scorecard showing a real spread of
    Bronze/Silver/Gold.
-3. A working self-service form ("Scaffold New Service") that creates new
+3. Two teams (`platform-team`, `checkout-team`) owning the six services,
+   with the current user added to one of them.
+4. A working self-service form ("Scaffold New Service") that creates new
    catalog entries.
-4. A working AI-powered workflow ("AI Service Health Check") that reads
+5. A working AI-powered workflow ("AI Service Health Check") that reads
    catalog data and writes back an AI-generated recommendation.
 
 ## Learn more

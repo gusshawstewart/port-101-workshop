@@ -1,0 +1,62 @@
+[
+  {
+    "identifier": "azrepo-checkout-service",
+    "title": "checkout-service",
+    "blueprint": "azure_repo",
+    "properties": {
+      "url": "https://dev.azure.com/port-101/_git/checkout-service",
+      "project": "port-101",
+      "default_branch": "main"
+    }
+  },
+  {
+    "identifier": "azrepo-auth-service",
+    "title": "auth-service",
+    "blueprint": "azure_repo",
+    "properties": {
+      "url": "https://dev.azure.com/port-101/_git/auth-service",
+      "project": "port-101",
+      "default_branch": "main"
+    }
+  },
+  {
+    "identifier": "azrepo-notifications-service",
+    "title": "notifications-service",
+    "blueprint": "azure_repo",
+    "properties": {
+      "url": "https://dev.azure.com/port-101/_git/notifications-service",
+      "project": "port-101",
+      "default_branch": "main"
+    }
+  },
+  {
+    "identifier": "azrepo-billing-service",
+    "title": "billing-service",
+    "blueprint": "azure_repo",
+    "properties": {
+      "url": "https://dev.azure.com/port-101/_git/billing-service",
+      "project": "port-101",
+      "default_branch": "main"
+    }
+  },
+  {
+    "identifier": "azrepo-search-service",
+    "title": "search-service",
+    "blueprint": "azure_repo",
+    "properties": {
+      "url": "https://dev.azure.com/port-101/_git/search-service",
+      "project": "port-101",
+      "default_branch": "main"
+    }
+  },
+  {
+    "identifier": "azrepo-inventory-service",
+    "title": "inventory-service",
+    "blueprint": "azure_repo",
+    "properties": {
+      "url": "https://dev.azure.com/port-101/_git/inventory-service",
+      "project": "port-101",
+      "default_branch": "main"
+    }
+  }
+]

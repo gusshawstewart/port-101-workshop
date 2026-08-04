@@ -1,0 +1,27 @@
+{
+  "identifier": "azure_repo",
+  "title": "Azure Repo",
+  "icon": "AzureDevops",
+  "schema": {
+    "properties": {
+      "url": {
+        "title": "Repo URL",
+        "type": "string",
+        "format": "url"
+      },
+      "project": {
+        "title": "Azure DevOps Project",
+        "type": "string"
+      },
+      "default_branch": {
+        "title": "Default Branch",
+        "type": "string",
+        "default": "main"
+      }
+    },
+    "required": []
+  },
+  "mirrorProperties": {},
+  "calculationProperties": {},
+  "relations": {}
+}

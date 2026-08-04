@@ -3,6 +3,7 @@
   "title": "Scaffold New Service",
   "icon": "Microservice",
   "description": "Register a new service in the catalog",
+  "allowAnyoneToViewRuns": true,
   "nodes": [
     {
       "identifier": "trigger",
@@ -52,8 +53,7 @@
             "repo_url": {
               "title": "Repository URL",
               "type": "string",
-              "format": "url",
-              "default": ""
+              "format": "url"
             }
           },
           "required": ["identifier", "title", "language"],

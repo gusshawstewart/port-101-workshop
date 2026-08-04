@@ -11,6 +11,10 @@
       "on_call": "checkout-team",
       "has_readme": true,
       "repo_url": "https://github.com/port-101/checkout-service"
+    },
+    "relations": {
+      "azure_repo": "azrepo-checkout-service",
+      "k8s_resources": ["k8s-checkout-service"]
     }
   },
   {
@@ -25,6 +29,10 @@
       "on_call": "identity-team",
       "has_readme": true,
       "repo_url": "https://github.com/port-101/auth-service"
+    },
+    "relations": {
+      "azure_repo": "azrepo-auth-service",
+      "k8s_resources": ["k8s-auth-service"]
     }
   },
   {
@@ -39,6 +47,10 @@
       "on_call": "platform-team",
       "has_readme": true,
       "repo_url": "https://github.com/port-101/notifications-service"
+    },
+    "relations": {
+      "azure_repo": "azrepo-notifications-service",
+      "k8s_resources": ["k8s-notifications-service"]
     }
   },
   {
@@ -53,6 +65,10 @@
       "on_call": "",
       "has_readme": false,
       "repo_url": "https://github.com/port-101/billing-service"
+    },
+    "relations": {
+      "azure_repo": "azrepo-billing-service",
+      "k8s_resources": ["k8s-billing-service"]
     }
   },
   {
@@ -67,6 +83,10 @@
       "on_call": "",
       "has_readme": false,
       "repo_url": "https://github.com/port-101/search-service"
+    },
+    "relations": {
+      "azure_repo": "azrepo-search-service",
+      "k8s_resources": ["k8s-search-service"]
     }
   },
   {
@@ -81,6 +101,10 @@
       "on_call": "",
       "has_readme": false,
       "repo_url": "https://github.com/port-101/inventory-service"
+    },
+    "relations": {
+      "azure_repo": "azrepo-inventory-service",
+      "k8s_resources": ["k8s-inventory-service"]
     }
   }
 ]

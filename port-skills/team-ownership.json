@@ -1,0 +1,9 @@
+{
+  "identifier": "port-101-team-ownership",
+  "title": "Port 101 — Team ownership",
+  "properties": {
+    "description": "Create two test teams, assign them ownership of the `service` catalog entities, and add the current user to one of the teams. Use when the user asks about Port teams, ownership, or wants to see how entities get owned by a team.",
+    "instructions": "# Team ownership\n\nYour job is to create two teams and wire up ownership.\n\n## Steps\n\n1. Upsert two entities on blueprint `_team`:\n   - `platform-team` (title: Platform Team) — description: \"Owns shared platform services: identity, notifications, search, and internal tooling.\"\n   - `checkout-team` (title: Checkout Team) — description: \"Owns the checkout and payments experience, including billing.\"\n2. Set the top-level `team` field (not a property — a sibling of `properties`) on these `service` entities:\n   - `team: [\"checkout-team\"]` for `checkout-service`, `billing-service`\n   - `team: [\"platform-team\"]` for `auth-service`, `notifications-service`, `search-service`, `inventory-service`\n3. Find the current user's `_user` entity (identifier = their email) and set its `team` field to `[\"platform-team\"]`.\n\nReport back which teams were created and which services/users were assigned to each.",
+    "location": "global"
+  }
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "identifier": "platform-team",
+    "title": "Platform Team",
+    "blueprint": "_team",
+    "properties": {
+      "description": "Owns shared platform services: identity, notifications, search, and internal tooling.",
+      "type": "team"
+    }
+  },
+  {
+    "identifier": "checkout-team",
+    "title": "Checkout Team",
+    "blueprint": "_team",
+    "properties": {
+      "description": "Owns the checkout and payments experience, including billing.",
+      "type": "team"
+    }
+  }
+]

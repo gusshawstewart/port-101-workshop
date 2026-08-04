@@ -3,6 +3,7 @@
   "title": "AI Service Health Check",
   "icon": "AI",
   "description": "Ask AI to review a service's catalog data and suggest production-readiness improvements",
+  "allowAnyoneToViewRuns": true,
   "nodes": [
     {
       "identifier": "trigger",
@@ -23,7 +24,7 @@
           "order": ["service"]
         },
         "actionCardButtonText": "Check",
-        "executeActionButtonText": "Run Health Check",
+        "executeActionButtonText": "Run Check",
         "published": true
       },
       "variables": {},

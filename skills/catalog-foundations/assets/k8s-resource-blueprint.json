@@ -1,0 +1,35 @@
+{
+  "identifier": "k8s_resource",
+  "title": "Kubernetes Resource",
+  "icon": "Cluster",
+  "schema": {
+    "properties": {
+      "kind": {
+        "title": "Kind",
+        "type": "string",
+        "enum": ["Deployment", "StatefulSet", "CronJob"],
+        "enumColors": {
+          "Deployment": "blue",
+          "StatefulSet": "purple",
+          "CronJob": "yellow"
+        }
+      },
+      "namespace": {
+        "title": "Namespace",
+        "type": "string"
+      },
+      "cluster": {
+        "title": "Cluster",
+        "type": "string"
+      },
+      "replicas": {
+        "title": "Replicas",
+        "type": "number"
+      }
+    },
+    "required": []
+  },
+  "mirrorProperties": {},
+  "calculationProperties": {},
+  "relations": {}
+}

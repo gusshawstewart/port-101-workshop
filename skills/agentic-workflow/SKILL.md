@@ -19,8 +19,9 @@ as [basic-workflow](../basic-workflow/SKILL.md), but with a real AI
 generation step in the middle.
 
 This skill is tool-agnostic — use whatever Port API/MCP access you have
-(`upsert_blueprint`, `upsert_action`, `upsert_workflow`), whether invoked
-from Claude, Cursor, or Port AI.
+(`upsert_blueprint`, `upsert_workflow`), whether invoked from Claude,
+Cursor, or Port AI. The workflow's first node (`type: SELF_SERVE_TRIGGER`)
+*is* the self-service form — you don't need a separate action object.
 
 ## Steps
 
@@ -31,12 +32,9 @@ from Claude, Cursor, or Port AI.
    — it merges these two new properties into whatever `service` blueprint
    already exists (from [catalog-foundations](../catalog-foundations/SKILL.md)),
    or creates the blueprint from scratch if it's missing.
-2. **Create the action.** Call `upsert_action` with
-   [assets/action.json](assets/action.json) — a single input: pick a
-   `service` entity.
-3. **Create the workflow.** Call `upsert_workflow` with
+2. **Create the workflow.** Call `upsert_workflow` with
    [assets/workflow.json](assets/workflow.json). It has 4 nodes:
-   - `trigger` — entity picker.
+   - `trigger` — `SELF_SERVE_TRIGGER`, entity picker.
    - `fetch_service` — `WEBHOOK` GET to `https://api.getport.io/v1/blueprints/service/entities/{id}`
      (EU tenants: use `api.eu.getport.io`). Port authenticates this call for
      you; no manual credentials needed.
@@ -56,6 +54,6 @@ recommendations.
 
 Builder → `service` blueprint → merge in the two new properties from
 [assets/service-blueprint-patch.json](assets/service-blueprint-patch.json).
-Self-Service → New Action → import
-[assets/action.json](assets/action.json). Automations/Workflows → New
-Workflow → import [assets/workflow.json](assets/workflow.json).
+Automations/Workflows → New Workflow → import
+[assets/workflow.json](assets/workflow.json). Its `SELF_SERVE_TRIGGER` node
+automatically makes it show up under Self-Service too.

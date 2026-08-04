@@ -1,0 +1,68 @@
+[
+  {
+    "identifier": "k8s-checkout-service",
+    "title": "checkout-service",
+    "blueprint": "k8s_resource",
+    "properties": {
+      "kind": "Deployment",
+      "namespace": "production",
+      "cluster": "aks-port-101",
+      "replicas": 4
+    }
+  },
+  {
+    "identifier": "k8s-auth-service",
+    "title": "auth-service",
+    "blueprint": "k8s_resource",
+    "properties": {
+      "kind": "Deployment",
+      "namespace": "production",
+      "cluster": "aks-port-101",
+      "replicas": 3
+    }
+  },
+  {
+    "identifier": "k8s-notifications-service",
+    "title": "notifications-service",
+    "blueprint": "k8s_resource",
+    "properties": {
+      "kind": "Deployment",
+      "namespace": "staging",
+      "cluster": "aks-port-101",
+      "replicas": 2
+    }
+  },
+  {
+    "identifier": "k8s-billing-service",
+    "title": "billing-service",
+    "blueprint": "k8s_resource",
+    "properties": {
+      "kind": "StatefulSet",
+      "namespace": "production",
+      "cluster": "aks-port-101",
+      "replicas": 2
+    }
+  },
+  {
+    "identifier": "k8s-search-service",
+    "title": "search-service",
+    "blueprint": "k8s_resource",
+    "properties": {
+      "kind": "Deployment",
+      "namespace": "staging",
+      "cluster": "aks-port-101",
+      "replicas": 1
+    }
+  },
+  {
+    "identifier": "k8s-inventory-service",
+    "title": "inventory-service",
+    "blueprint": "k8s_resource",
+    "properties": {
+      "kind": "CronJob",
+      "namespace": "dev",
+      "cluster": "aks-port-101",
+      "replicas": 1
+    }
+  }
+]

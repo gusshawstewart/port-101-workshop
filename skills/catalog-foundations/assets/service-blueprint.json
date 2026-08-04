@@ -52,5 +52,18 @@
   },
   "mirrorProperties": {},
   "calculationProperties": {},
-  "relations": {}
+  "relations": {
+    "azure_repo": {
+      "title": "Azure Repo",
+      "target": "azure_repo",
+      "required": false,
+      "many": false
+    },
+    "k8s_resources": {
+      "title": "Kubernetes Resources",
+      "target": "k8s_resource",
+      "required": false,
+      "many": true
+    }
+  }
 }

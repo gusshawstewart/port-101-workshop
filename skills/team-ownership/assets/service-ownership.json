@@ -1,0 +1,4 @@
+{
+  "checkout-team": ["checkout-service", "billing-service"],
+  "platform-team": ["auth-service", "notifications-service", "search-service", "inventory-service"]
+}
