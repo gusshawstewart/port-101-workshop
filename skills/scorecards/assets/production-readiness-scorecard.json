@@ -1,0 +1,48 @@
+{
+  "blueprintIdentifier": "service",
+  "scorecard": {
+    "identifier": "production_readiness",
+    "title": "Production Readiness",
+    "rules": [
+      {
+        "identifier": "has_tier_assigned",
+        "title": "Tier is assigned",
+        "description": "Every service should have a tier so ownership and criticality are clear.",
+        "level": "Bronze",
+        "query": {
+          "combinator": "and",
+          "conditions": [
+            { "property": "tier", "operator": "isNotEmpty" }
+          ]
+        }
+      },
+      {
+        "identifier": "has_readme_and_oncall",
+        "title": "Has a README and an on-call owner",
+        "description": "Documented and owned services are easier to operate and support.",
+        "level": "Silver",
+        "query": {
+          "combinator": "and",
+          "conditions": [
+            { "property": "has_readme", "operator": "=", "value": true },
+            { "property": "on_call", "operator": "isNotEmpty" }
+          ]
+        }
+      },
+      {
+        "identifier": "production_ready",
+        "title": "Documented, owned, and running in Production",
+        "description": "Gold-tier services are fully documented, owned, and promoted to Production.",
+        "level": "Gold",
+        "query": {
+          "combinator": "and",
+          "conditions": [
+            { "property": "has_readme", "operator": "=", "value": true },
+            { "property": "on_call", "operator": "isNotEmpty" },
+            { "property": "lifecycle", "operator": "=", "value": "Production" }
+          ]
+        }
+      }
+    ]
+  }
+}

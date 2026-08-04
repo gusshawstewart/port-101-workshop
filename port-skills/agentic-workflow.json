@@ -1,0 +1,9 @@
+{
+  "identifier": "port-101-agentic-workflow",
+  "title": "Port 101 — AI service health check",
+  "properties": {
+    "description": "Run the \"AI Service Health Check\" workflow to get an AI-generated production-readiness summary for a service. Use when the user asks to check a service's health, review readiness, or run the agentic/AI workflow example.",
+    "instructions": "# AI service health check\n\nYour only job is to start the **`ai_service_health_check`** workflow using **`trigger_workflow_run`**.\n\n## Inputs\n\n- `service`: the identifier of the service entity to check (ask the user if not provided; e.g. `billing-service`).\n\n## Steps\n\n1. Call **`trigger_workflow_run`** with `identifier: \"ai_service_health_check\"` and `inputs: { \"service\": \"<service identifier>\" }`.\n2. Return the workflow run identifier and current status.\n3. Optionally poll for completion and report the resulting `ai_health_summary` once the run finishes.\n\nDo not walk the user through Self-Service UI clicks — trigger the workflow and report the result.",
+    "location": "global"
+  }
+}

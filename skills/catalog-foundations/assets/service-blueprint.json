@@ -1,0 +1,56 @@
+{
+  "identifier": "service",
+  "title": "Service",
+  "icon": "Microservice",
+  "schema": {
+    "properties": {
+      "description": {
+        "title": "Description",
+        "type": "string",
+        "format": "markdown"
+      },
+      "language": {
+        "title": "Language",
+        "type": "string",
+        "enum": ["Go", "Python", "Node.js", "Java", "TypeScript"]
+      },
+      "lifecycle": {
+        "title": "Lifecycle",
+        "type": "string",
+        "enum": ["Production", "Staging", "Experimental"],
+        "enumColors": {
+          "Production": "red",
+          "Staging": "yellow",
+          "Experimental": "green"
+        }
+      },
+      "tier": {
+        "title": "Tier",
+        "type": "string",
+        "enum": ["Tier 1", "Tier 2", "Tier 3"],
+        "enumColors": {
+          "Tier 1": "red",
+          "Tier 2": "yellow",
+          "Tier 3": "lightGray"
+        }
+      },
+      "on_call": {
+        "title": "On-Call Owner",
+        "type": "string"
+      },
+      "has_readme": {
+        "title": "Has README",
+        "type": "boolean"
+      },
+      "repo_url": {
+        "title": "Repository",
+        "type": "string",
+        "format": "url"
+      }
+    },
+    "required": []
+  },
+  "mirrorProperties": {},
+  "calculationProperties": {},
+  "relations": {}
+}

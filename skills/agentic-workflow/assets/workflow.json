@@ -1,0 +1,127 @@
+{
+  "identifier": "ai_service_health_check",
+  "title": "AI Service Health Check",
+  "icon": "AI",
+  "description": "Ask AI to review a service's catalog data and suggest production-readiness improvements",
+  "nodes": [
+    {
+      "identifier": "trigger",
+      "title": "AI Service Health Check",
+      "icon": "AI",
+      "config": {
+        "type": "SELF_SERVE_TRIGGER",
+        "userInputs": {
+          "properties": {
+            "service": {
+              "title": "Service",
+              "type": "string",
+              "format": "entity",
+              "blueprint": "service"
+            }
+          },
+          "required": ["service"],
+          "order": ["service"]
+        },
+        "actionCardButtonText": "Check",
+        "executeActionButtonText": "Run Health Check",
+        "published": true
+      },
+      "variables": {},
+      "links": [],
+      "verbose": false
+    },
+    {
+      "identifier": "fetch_service",
+      "title": "Fetch Service",
+      "icon": "Port",
+      "description": null,
+      "config": {
+        "type": "WEBHOOK",
+        "url": "https://api.getport.io/v1/blueprints/service/entities/{{ .outputs[\"trigger\"].service }}",
+        "agent": false,
+        "synchronized": true,
+        "method": "GET",
+        "onTimeout": "fail",
+        "onFailure": "terminate"
+      },
+      "variables": {
+        "service_title": "{{ .result.response.data.entity.title }}",
+        "language": "{{ .result.response.data.entity.properties.language }}",
+        "lifecycle": "{{ .result.response.data.entity.properties.lifecycle }}",
+        "tier": "{{ .result.response.data.entity.properties.tier }}",
+        "on_call": "{{ .result.response.data.entity.properties.on_call }}",
+        "has_readme": "{{ .result.response.data.entity.properties.has_readme }}"
+      },
+      "links": [],
+      "verbose": false
+    },
+    {
+      "identifier": "ai_health_check",
+      "title": "Generate Health Summary",
+      "icon": "AI",
+      "config": {
+        "type": "AI",
+        "userPrompt": "Review this service's production-readiness based on its catalog data:\n\n- Service: {{ .outputs[\"fetch_service\"].service_title }}\n- Language: {{ .outputs[\"fetch_service\"].language }}\n- Lifecycle: {{ .outputs[\"fetch_service\"].lifecycle }}\n- Tier: {{ .outputs[\"fetch_service\"].tier }}\n- On-call owner: {{ .outputs[\"fetch_service\"].on_call }}\n- Has README: {{ .outputs[\"fetch_service\"].has_readme }}\n\nWrite a short (3-5 sentence) health summary, then list up to 3 concrete, prioritized recommendations to improve production-readiness (e.g. missing on-call owner, missing README, lifecycle mismatched with tier).",
+        "systemPrompt": "You are a platform engineer running a lightweight production-readiness review. Be concise and concrete. Do not invent facts not present in the input.",
+        "tools": [],
+        "outputSchema": {
+          "type": "object",
+          "properties": {
+            "summary": {
+              "type": "string"
+            },
+            "recommendations": {
+              "type": "string"
+            }
+          },
+          "required": ["summary", "recommendations"]
+        }
+      },
+      "variables": {
+        "summary": "{{ .result.response | fromjson | .summary }}",
+        "recommendations": "{{ .result.response | fromjson | .recommendations }}"
+      },
+      "description": null,
+      "links": [],
+      "verbose": false
+    },
+    {
+      "identifier": "write_back_to_catalog",
+      "title": "Save Health Summary to Catalog",
+      "icon": "NewPage",
+      "config": {
+        "type": "UPSERT_ENTITY",
+        "blueprintIdentifier": "service",
+        "mapping": {
+          "identifier": "{{ .outputs[\"trigger\"].service }}",
+          "properties": {
+            "ai_health_summary": "## Summary\n{{ .outputs[\"ai_health_check\"].summary }}\n\n## Recommendations\n{{ .outputs[\"ai_health_check\"].recommendations }}",
+            "ai_health_checked_at": "{{ now | todateiso8601 }}"
+          }
+        },
+        "onFailure": "terminate"
+      },
+      "variables": {},
+      "description": null,
+      "links": [],
+      "verbose": false
+    }
+  ],
+  "connections": [
+    {
+      "sourceIdentifier": "trigger",
+      "targetIdentifier": "fetch_service",
+      "description": null
+    },
+    {
+      "sourceIdentifier": "fetch_service",
+      "targetIdentifier": "ai_health_check",
+      "description": null
+    },
+    {
+      "sourceIdentifier": "ai_health_check",
+      "targetIdentifier": "write_back_to_catalog",
+      "description": null
+    }
+  ]
+}

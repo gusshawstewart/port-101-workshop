@@ -1,0 +1,9 @@
+{
+  "identifier": "port-101-scorecards",
+  "title": "Port 101 — Scorecards",
+  "properties": {
+    "description": "Create a \"Production Readiness\" scorecard on the `service` blueprint with Bronze/Silver/Gold rules. Use when the user asks about Port scorecards, maturity levels, readiness checks, or scoring/grading catalog entities.",
+    "instructions": "# Scorecards\n\nYour job is to create a scorecard identified `production_readiness` on the `service` blueprint.\n\n## Rules\n\n1. Bronze — `tier` is not empty.\n2. Silver — `has_readme` is true AND `on_call` is not empty.\n3. Gold — Silver's conditions AND `lifecycle` is `Production`.\n\nIf the `service` blueprint does not exist yet, create a minimal one first with at least `tier`, `has_readme`, `on_call`, `lifecycle` properties (or ask the user to run catalog setup first).\n\nReport back the scorecard identifier and the resulting level distribution across existing `service` entities, if visible.",
+    "location": "global"
+  }
+}

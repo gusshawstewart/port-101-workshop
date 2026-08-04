@@ -1,0 +1,143 @@
+{
+  "identifier": "scaffold_new_service",
+  "title": "Scaffold New Service",
+  "icon": "Microservice",
+  "description": "Register a new service in the catalog",
+  "nodes": [
+    {
+      "identifier": "trigger",
+      "title": "Scaffold New Service",
+      "icon": "Microservice",
+      "config": {
+        "type": "SELF_SERVE_TRIGGER",
+        "userInputs": {
+          "properties": {
+            "identifier": {
+              "title": "Service Identifier",
+              "description": "Lowercase, hyphenated (e.g. payments-service)",
+              "type": "string"
+            },
+            "title": {
+              "title": "Service Title",
+              "type": "string"
+            },
+            "language": {
+              "title": "Language",
+              "type": "string",
+              "default": "Node.js",
+              "enum": ["Go", "Python", "Node.js", "Java", "TypeScript"]
+            },
+            "lifecycle": {
+              "title": "Lifecycle",
+              "type": "string",
+              "default": "Experimental",
+              "enum": ["Production", "Staging", "Experimental"],
+              "enumColors": {
+                "Production": "red",
+                "Staging": "yellow",
+                "Experimental": "green"
+              }
+            },
+            "tier": {
+              "title": "Tier",
+              "type": "string",
+              "default": "Tier 3",
+              "enum": ["Tier 1", "Tier 2", "Tier 3"]
+            },
+            "on_call": {
+              "title": "On-Call Owner",
+              "type": "string",
+              "default": ""
+            },
+            "repo_url": {
+              "title": "Repository URL",
+              "type": "string",
+              "format": "url",
+              "default": ""
+            }
+          },
+          "required": ["identifier", "title", "language"],
+          "order": [
+            "identifier",
+            "title",
+            "language",
+            "lifecycle",
+            "tier",
+            "on_call",
+            "repo_url"
+          ]
+        },
+        "actionCardButtonText": "Scaffold",
+        "executeActionButtonText": "Create Service",
+        "published": true
+      },
+      "variables": {},
+      "links": [],
+      "verbose": false
+    },
+    {
+      "identifier": "create_service_entity",
+      "title": "Create Service in Catalog",
+      "icon": "NewPage",
+      "config": {
+        "type": "UPSERT_ENTITY",
+        "blueprintIdentifier": "service",
+        "mapping": {
+          "identifier": "{{ .outputs[\"trigger\"].identifier }}",
+          "title": "{{ .outputs[\"trigger\"].title }}",
+          "properties": {
+            "language": "{{ .outputs[\"trigger\"].language }}",
+            "lifecycle": "{{ .outputs[\"trigger\"].lifecycle }}",
+            "tier": "{{ .outputs[\"trigger\"].tier }}",
+            "on_call": "{{ .outputs[\"trigger\"].on_call }}",
+            "has_readme": false,
+            "repo_url": "{{ .outputs[\"trigger\"].repo_url }}"
+          }
+        },
+        "onFailure": "terminate"
+      },
+      "variables": {},
+      "description": null,
+      "links": [],
+      "verbose": false
+    },
+    {
+      "identifier": "notify_slack",
+      "title": "Notify Slack",
+      "icon": "Slack",
+      "config": {
+        "type": "WEBHOOK",
+        "url": "https://slack.com/api/chat.postMessage",
+        "agent": false,
+        "synchronized": true,
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{ .secrets.SLACK_BOT_TOKEN }}"
+        },
+        "body": {
+          "text": "New service scaffolded: {{ .outputs[\"trigger\"].title }}",
+          "channel": "{{ .secrets.SLACK_PLATFORM_CHANNEL }}"
+        },
+        "onTimeout": "fail",
+        "onFailure": "continue"
+      },
+      "variables": {},
+      "description": null,
+      "links": [],
+      "verbose": false
+    }
+  ],
+  "connections": [
+    {
+      "sourceIdentifier": "trigger",
+      "targetIdentifier": "create_service_entity",
+      "description": null
+    },
+    {
+      "sourceIdentifier": "create_service_entity",
+      "targetIdentifier": "notify_slack",
+      "description": null
+    }
+  ]
+}

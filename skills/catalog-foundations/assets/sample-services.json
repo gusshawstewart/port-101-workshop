@@ -1,0 +1,86 @@
+[
+  {
+    "identifier": "checkout-service",
+    "title": "Checkout Service",
+    "blueprint": "service",
+    "properties": {
+      "description": "Handles cart checkout and payment capture.",
+      "language": "Go",
+      "lifecycle": "Production",
+      "tier": "Tier 1",
+      "on_call": "checkout-team",
+      "has_readme": true,
+      "repo_url": "https://github.com/port-101/checkout-service"
+    }
+  },
+  {
+    "identifier": "auth-service",
+    "title": "Auth Service",
+    "blueprint": "service",
+    "properties": {
+      "description": "Issues and validates user sessions and tokens.",
+      "language": "Java",
+      "lifecycle": "Production",
+      "tier": "Tier 1",
+      "on_call": "identity-team",
+      "has_readme": true,
+      "repo_url": "https://github.com/port-101/auth-service"
+    }
+  },
+  {
+    "identifier": "notifications-service",
+    "title": "Notifications Service",
+    "blueprint": "service",
+    "properties": {
+      "description": "Sends email, SMS, and push notifications.",
+      "language": "Node.js",
+      "lifecycle": "Staging",
+      "tier": "Tier 2",
+      "on_call": "platform-team",
+      "has_readme": true,
+      "repo_url": "https://github.com/port-101/notifications-service"
+    }
+  },
+  {
+    "identifier": "billing-service",
+    "title": "Billing Service",
+    "blueprint": "service",
+    "properties": {
+      "description": "Generates invoices and manages subscription billing.",
+      "language": "Python",
+      "lifecycle": "Production",
+      "tier": "Tier 1",
+      "on_call": "",
+      "has_readme": false,
+      "repo_url": "https://github.com/port-101/billing-service"
+    }
+  },
+  {
+    "identifier": "search-service",
+    "title": "Search Service",
+    "blueprint": "service",
+    "properties": {
+      "description": "Full-text search over the product catalog.",
+      "language": "TypeScript",
+      "lifecycle": "Staging",
+      "tier": "Tier 2",
+      "on_call": "",
+      "has_readme": false,
+      "repo_url": "https://github.com/port-101/search-service"
+    }
+  },
+  {
+    "identifier": "inventory-service",
+    "title": "Inventory Service",
+    "blueprint": "service",
+    "properties": {
+      "description": "Tracks stock levels across warehouses.",
+      "language": "Python",
+      "lifecycle": "Experimental",
+      "tier": "Tier 3",
+      "on_call": "",
+      "has_readme": false,
+      "repo_url": "https://github.com/port-101/inventory-service"
+    }
+  }
+]

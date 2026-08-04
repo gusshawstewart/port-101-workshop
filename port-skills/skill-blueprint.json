@@ -1,0 +1,84 @@
+{
+  "identifier": "skill",
+  "title": "Skill",
+  "icon": "Learn",
+  "schema": {
+    "properties": {
+      "description": {
+        "title": "Description",
+        "type": "string",
+        "description": "What the skill does and when the model should use it"
+      },
+      "instructions": {
+        "title": "Instructions",
+        "type": "string",
+        "format": "markdown",
+        "description": "Step-by-step instructions for the AI to follow"
+      },
+      "references": {
+        "title": "References",
+        "type": "array",
+        "description": "Reference documents for the skill",
+        "items": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string",
+              "description": "Resource path (e.g., references/common-errors.md)"
+            },
+            "content": {
+              "type": "string",
+              "description": "The file content"
+            },
+            "description": {
+              "type": "string",
+              "description": "Optional description of the resource"
+            }
+          },
+          "required": ["path", "content"],
+          "additionalProperties": false
+        }
+      },
+      "assets": {
+        "title": "Assets",
+        "type": "array",
+        "description": "Asset files (templates, configs) for the skill",
+        "items": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string",
+              "description": "Asset path (e.g., assets/mapping-template.yaml)"
+            },
+            "content": {
+              "type": "string",
+              "description": "The file content"
+            },
+            "description": {
+              "type": "string",
+              "description": "Optional description of the asset"
+            }
+          },
+          "required": ["path", "content"],
+          "additionalProperties": false
+        }
+      },
+      "location": {
+        "type": "string",
+        "title": "Location",
+        "description": "The target directory where the skill will be created on the machine.",
+        "default": "global",
+        "enum": ["global", "project"],
+        "enumColors": {
+          "global": "lightGray",
+          "project": "lightGray"
+        }
+      }
+    },
+    "required": ["description", "instructions", "location"]
+  },
+  "mirrorProperties": {},
+  "calculationProperties": {},
+  "aggregationProperties": {},
+  "relations": {}
+}

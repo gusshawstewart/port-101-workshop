@@ -1,0 +1,9 @@
+{
+  "identifier": "port-101-basic-workflow",
+  "title": "Port 101 — Scaffold new service",
+  "properties": {
+    "description": "Run the \"Scaffold New Service\" workflow to register a new service in the catalog. Use when the user asks to create/scaffold/register a new service, or to run the basic workflow example.",
+    "instructions": "# Scaffold a new service\n\nYour only job is to start the **`scaffold_new_service`** workflow using **`trigger_workflow_run`**.\n\n## Inputs\n\nUse values the user provided. If they did not specify, ask for at least `identifier` and `title`; use these defaults for the rest:\n\n- `language`: `Node.js`\n- `lifecycle`: `Experimental`\n- `tier`: `Tier 3`\n- `on_call`: \"\"\n- `repo_url`: \"\"\n\nRequired trigger fields: `identifier`, `title`, `language`.\n\n## Steps\n\n1. Call **`trigger_workflow_run`** with `identifier: \"scaffold_new_service\"` and the inputs above.\n2. Return the workflow run identifier and current status.\n\nDo not walk the user through Self-Service UI clicks — trigger the workflow and report the result.",
+    "location": "global"
+  }
+}
