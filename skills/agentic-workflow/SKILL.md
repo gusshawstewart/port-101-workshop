@@ -35,8 +35,8 @@ Cursor, or Port AI. The workflow's first node (`type: SELF_SERVE_TRIGGER`)
 2. **Create the workflow.** Call `upsert_workflow` with
    [assets/workflow.json](assets/workflow.json). It has 4 nodes:
    - `trigger` — `SELF_SERVE_TRIGGER`, entity picker.
-   - `fetch_service` — `WEBHOOK` GET to `https://api.getport.io/v1/blueprints/service/entities/{id}`
-     (EU tenants: use `api.eu.getport.io`). Port authenticates this call for
+   - `fetch_service` — `WEBHOOK` GET to `https://api.port.io/v1/blueprints/service/entities/{id}`
+     (US tenants: use `api.us.port.io`). Port authenticates this call for
      you; no manual credentials needed.
    - `ai_health_check` — `AI` node; prompts on the service's properties,
      returns `summary` + `recommendations` as structured JSON.

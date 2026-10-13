@@ -38,7 +38,7 @@
       "description": null,
       "config": {
         "type": "WEBHOOK",
-        "url": "https://api.getport.io/v1/blueprints/service/entities/{{ .outputs[\"trigger\"].service }}",
+        "url": "https://api.port.io/v1/blueprints/service/entities/{{ .outputs[\"trigger\"].service }}",
         "agent": false,
         "synchronized": true,
         "method": "GET",
